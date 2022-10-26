@@ -28,9 +28,9 @@ cors:
 springdoc:
   show-actuator: false
   api-docs:
-    enabled: false
+    enabled: true
   swagger-ui:
-    enabled: false
+    enabled: true
 
 email:
   corp:
