@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,6 @@ public class EmailResource implements EmailResourceApi {
 	private EmailService emailSrv;
 	
 	
-	
 	/**
 	 * {@code GET /api/cliente : obter todos os clientes }
 	 * 
@@ -32,9 +32,14 @@ public class EmailResource implements EmailResourceApi {
 	@Override
 	@PostMapping("/enviar")
 	public ResponseEntity<Email> enviar(Email email) throws URISyntaxException {
-		
+		log.info("Recebendo Solicitação de Email do usuário:" + email.getFrom());
 		emailSrv.sendMail(email);
 		return new ResponseEntity<Email>(HttpStatus.OK);
 	}
-
+	
+	@GetMapping
+	public ResponseEntity<String> teste() {
+		return ResponseEntity.ok("Deu certo!");
+	}
+ 
 }

@@ -64,26 +64,14 @@ public class Email implements Serializable{
 			this.arquivos = new HashMap<>();
 		} else {
 			this.arquivos = arquivos;
-		}
-		
-//			this.anexos = new Anexos();
-//			this.anexos.setNome("Lista de Arquivos");
-//			Path path = Paths.get("C:\\tmp\\arquivos\\comprovante.pdf");
-//			byte[] arquivo =  Files.readAllBytes(path);			
-//			anexos.addArquivo(arquivo);			
-	}
-	
+		}					
+	}	
 	
 	public Email(String to, String corpo, String subject) {
 		super();
 		this.to = to;
 		this.corpo = corpo;
 		this.subject = subject;
-//			this.anexos = new Anexos();
-//			this.anexos.setNome("Lista de Arquivos");
-//			Path path = Paths.get("C:\\tmp\\arquivos\\comprovante.pdf");
-//			byte[] arquivo =  Files.readAllBytes(path);			
-//			anexos.addArquivo(arquivo);			
 	}
 	
 	public Email(String to, String from, String corpo, String subject, String sistema, String tipoEmail, 
@@ -99,12 +87,10 @@ public class Email implements Serializable{
 		this.status = status;
 		this.error = error;
 		this.copia = copia;
-		//this.anexos = new Anexos("Lista de Arquivos", anexos);
 	}
 	
 	public Email() {
 		super();
-		//this.anexos = new Anexos("Lista de Arquivos", new ArrayList<byte[]>());
 	}
 
 	public String getError() {
@@ -197,7 +183,5 @@ public class Email implements Serializable{
 	public void setPastaAnexos(String pastaAnexos) {
 		this.pastaAnexos = pastaAnexos;
 	}
-
-	
 	
 }
