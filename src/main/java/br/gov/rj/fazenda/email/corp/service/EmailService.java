@@ -23,7 +23,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import br.gov.rj.fazenda.email.corp.vo.Email;
+import br.gov.rj.fazenda.email.corp.dto.EmailDTO;
 
 
 @Service("EmailService")
@@ -36,7 +36,7 @@ public class EmailService {
 	@Autowired 
     private JavaMailSender mailSender;
 
-    public void sendMail(Email msg) {    	
+    public void sendMail(EmailDTO msg) {    	
 		try {
 	    	MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper mimeMsg;

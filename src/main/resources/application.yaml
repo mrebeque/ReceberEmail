@@ -5,7 +5,7 @@ version: "@version@"
 
 spring:
   profiles:
-    active: dev
+    active: local
   activemq:
     broker-url: tcp://drhel8labplat001v.sefnet.rj:61616
     password: 123456
@@ -13,7 +13,7 @@ spring:
   mail:
     host: smtp2.sefnet
     username: mrepereira
-    password: Mrp200867##
+    password: 200867Mrp##
     port: 25
     properties:
       mail:
@@ -23,17 +23,14 @@ spring:
           ehlo: false
           starttls:
             enable: false
+
+server:
+  address: 0.0.0.0
+  port: 8091
+  servlet:
+    contextPath: /senderMail            
 enexo:
   path: /var/email/anexos
-
-
-jwt:
-  expiration: ${SSA_JWT_DURATION:43200000} # 12hs
-  secret: ${SSA_JWT_SECRET:JWTuR2yAi7O5UbLfsm9alp7qicsA3KNdrHYSSA}
-
-ssa:
-  secret: ${SSA_SECRET:uR2yAi7O5UbLfsm9alp7qicsA3KNdrHY}
-  url: ${SSA_URL:http://ssadci.sefnet.rj/ssa}
 
 cors:
   mapping: "/**"
@@ -48,8 +45,6 @@ springdoc:
   swagger-ui:
     enabled: false
 
-email:
-  corp:
-    mq:
-      queue: emailCorp.email   
-    file_dir: /tmp/arquivos/saida   
+
+auth:
+  codigoAplicacao: AUTORIZADOR-SERVICE      

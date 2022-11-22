@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import br.gov.rj.fazenda.email.corp.vo.Email;
+import br.gov.rj.fazenda.email.corp.dto.EmailDTO;
 
 @Service
 public class MensageriaService {
@@ -43,10 +44,10 @@ public class MensageriaService {
 	    public void enviarMensagem(String sistema, 
 	    		String from, String to, String cc,
 	    		String subject, String body,
-	    		HashMap<String, byte[]> arquivos){
+	    		HashMap<String, String> arquivos){
 	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	    	
-    		Email email = new Email();
+    		EmailDTO email = new EmailDTO();
     		
             email.setSistema(sistema);
             email.setFrom(from);
@@ -60,15 +61,37 @@ public class MensageriaService {
             email.setError("Sem erro");
             email.setPastaAnexos("");
 	    	if (arquivos.isEmpty() == false) {
-	    	
-	    		Path path = Paths.get(sistema + "_" + Calendar.getInstance().getTimeInMillis());	    		
-	    	    boolean existeDir = (new File(path.toUri()).mkdirs());
-	    	    
+	    		Path path = Paths.get(email.getSistema() + "_" + Calendar.getInstance().getTimeInMillis());	    		
+	    	    boolean existeDir = (new File(path.toUri()).mkdirs());	    	    
 	    		email.setPastaAnexos(path.toFile().getName());
-
-	    		for (Map.Entry<String, byte[]> arquivo : arquivos.entrySet()) {	        		
-					try {					 
-						Files.write(Paths.get(path + path.getFileSystem().getSeparator() + arquivo.getKey()), arquivo.getValue());
+	    		for (Map.Entry<String, String> listaArquivos : email.getArquivos().entrySet()) {	        		
+					try {
+						byte[] arquivo = Base64.getDecoder().decode(listaArquivos.getValue());						
+						Files.write(Paths.get(path + path.getFileSystem().getSeparator() + listaArquivos.getKey()), arquivo);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    		jmsTemplate.convertAndSend(fila, email);	            
+		    }
+	    }	
+			 
+	    public void enviarMensagem(EmailDTO email){
+	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+	    	
+            email.setTipoEmail("HTML");
+            email.setDataEnvio(ds.format(Calendar.getInstance().getTime()));
+            email.setStatus("oK");
+            email.setError("Sem erro");
+            email.setPastaAnexos("");
+	    	if (email.getArquivos().isEmpty() == false) {	    	
+	    		Path path = Paths.get(email.getSistema() + "_" + Calendar.getInstance().getTimeInMillis());	    		
+	    	    boolean existeDir = (new File(path.toUri()).mkdirs());	    	    
+	    		email.setPastaAnexos(path.toFile().getName());
+	    		for (Map.Entry<String, String> listaArquivos : email.getArquivos().entrySet()) {	        		
+					try {
+						byte[] arquivo = Base64.getDecoder().decode(listaArquivos.getValue());						
+						Files.write(Paths.get(path + path.getFileSystem().getSeparator() + listaArquivos.getKey()), arquivo);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -76,12 +99,12 @@ public class MensageriaService {
 	    		jmsTemplate.convertAndSend(fila, email);	            
 		    }
 	    }	
-			 
+
 	    public void enviarMensagem() {
 	    	
 	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	    	for (int i = 0; i < 10; i++) {
-	    		Email email = new Email();
+	    		EmailDTO email = new EmailDTO();
 	    		
 	            email.setFrom("mrepereira@fazenda.rj.gov.br");
 	            email.setTo("marcelo.rebeque@gmail.com");

@@ -1,0 +1,32 @@
+spring:
+  activemq:
+    broker-url: tcp://drhel8labplat001v.sefnet.rj:61616
+    password: 123456
+    user: emailCorp
+
+## baseUrl: http://drhel8labplat001v.sefnet.rj:8090/autenticador
+auth:  
+  baseUrl: http://localhost:8090/autenticador
+  token-autenticacao: eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NzY5OTc4NTEsInN1YiI6IkVNQUlMX0NOVF9VU1JfU1JWIiwiYXBsaWNhY2FvIjoiQVVUT1JJWkFET1ItU0VSVklDRSIsInJvbGUiOlt7ImF1dGhvcml0eSI6IlNSViJ9XSwiaG9yYUV4cGlyYWNhbyI6IjE0OjQ0IiwidGlwb1Rva2VuIjoiQVVUSCJ9.FCBpa6r9-kopNkHCSAlcI2PLDFhOJ-w88ldyYWa4kG4k7lVOCIqpS-PRLCVPxB88Q3LocNWuX_qXGSLHNuShrA
+
+cors:
+  mapping: "/**"
+  origins: "**"
+  methods: "*"
+  headers: "*"
+
+springdoc:
+  show-actuator: false
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    
+email:
+  corp:
+    mq:
+      queue: emailCorp.email   
+    file_dir: /tmp/arquivos/saida
+    
+logging:
+  config: classpath:./conf/log4j2-spring-local.xml    
