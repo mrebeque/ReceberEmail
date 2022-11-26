@@ -1,42 +1,20 @@
-#Open API - Swagger
 name: "receberEmail"
 description: "Aplicação para envio de Email Corporativo"
 version: "1.0.0"
 
 spring:
   profiles:
-    active: local
+    active: ${PROFILE}
   activemq:
-    broker-url: tcp://drhel8labplat001v.sefnet.rj:61616
-    password: 123456
-    user: emailCorp    
-  mail:
-    host: smtp2.sefnet
-    username: mrepereira
-    password: 200867Mrp##
-    port: 25
-    properties:
-      mail:
-        debug: false
-        smtp:
-          auth: true
-          ehlo: false
-          starttls:
-            enable: false
+    broker-url: ${urlBroker}
+    user: ${usrBroker}   
+    password: ${pwdBroker} 
 
 server:
   address: 0.0.0.0
   port: 8091
   servlet:
     contextPath: /senderMail            
-enexo:
-  path: /var/email/anexos
-
-cors:
-  mapping: "/**"
-  origins: "**"
-  methods: "*"
-  headers: "*"
 
 springdoc:
   show-actuator: false
@@ -45,6 +23,13 @@ springdoc:
   swagger-ui:
     enabled: false
 
-
 auth:
   codigoAplicacao: AUTORIZADOR-SERVICE      
+  baseUrl: ${authUrl}
+  token-autenticacao: ${authToken}
+    
+logging:
+  config: ${arqConf}      
+  
+app:
+  dirAnexos: ${dirAnexos}    

@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,7 @@ public class EmailResource implements EmailResourceApi {
 	 */
 	@Override
 	@PostMapping(value = "/enviar")
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADM') or hasAuthority('SRV')")
 	public ResponseEntity<String> enviar(
 			  @RequestBody EmailDTO email) throws URISyntaxException {
 		log.info("Recebendo Solicitação de Email do usuário:" + email.getFrom());

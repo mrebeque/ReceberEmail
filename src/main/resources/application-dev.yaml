@@ -1,0 +1,17 @@
+cors:
+  mapping: "/**"
+  origins: "http://drhel8labplat001v.sefnet.rj"
+  methods: "*"
+  headers: "*"
+
+springdoc:
+  show-actuator: false
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    
+email:
+  corp:
+    mq:
+      queue: emailCorp.email   

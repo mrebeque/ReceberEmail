@@ -22,7 +22,7 @@ public class AutenticadorClient {
 	CredencialDTO credencial = new CredencialDTO();
 	
 	
-	private static final String SUFFIX_AUTH = "/api/v1/usuario/auttenticar";
+	private static final String SUFFIX_AUTH = "/api/v1/usuario/autenticar";
 	private static final String SUFFIX_KEY = "/api/v1/aplicacao/obterChaveJWT";
 
 	private String chaveJwt;
@@ -45,8 +45,9 @@ public class AutenticadorClient {
 	private void autenticar() {		
 		 templateAutorizacao = this.createRestTemplate(tokenAutenticacao);
 		 this.credencial = templateAutorizacao
-				 			.getForObject(this.baseUrlAuth + SUFFIX_AUTH, 
-				            	         CredencialDTO.class);	
+				 			.postForObject(this.baseUrlAuth + SUFFIX_AUTH,
+				 						null, 
+				            	        CredencialDTO.class);	
 	}
 	
 	private void obterChaveJwst( ) {

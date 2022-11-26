@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.python.icu.util.Calendar;
@@ -25,57 +24,15 @@ public class MensageriaService {
 	   
 		@Value("${email.corp.mq.queue}")	
 		private String fila;   
-		
-		@Value("${email.corp.file_dir}")
-		private String fileDir;
-		
-		@Value("${spring.profiles.active}")
-		private String ambiente;
-		
-		@Value("${enexo.path}")
+
+		@Value("${app.dirAnexos}")
 		private String dirAnexos;
 		
 	    @Autowired
 	    public MensageriaService(JmsTemplate jmsTemplate) {
 			this.jmsTemplate = jmsTemplate;
 	    }
-	    
-	    
-	    public void enviarMensagem(String sistema, 
-	    		String from, String to, String cc,
-	    		String subject, String body,
-	    		HashMap<String, String> arquivos){
-	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-	    	
-    		EmailDTO email = new EmailDTO();
-    		
-            email.setSistema(sistema);
-            email.setFrom(from);
-            email.setTo(to);
-            email.setCopia(cc);
-            email.setSubject(subject);
-            email.setCorpo(body);
-            email.setTipoEmail("HTML");
-            email.setDataEnvio(ds.format(Calendar.getInstance().getTime()));
-            email.setStatus("oK");
-            email.setError("Sem erro");
-            email.setPastaAnexos("");
-	    	if (arquivos.isEmpty() == false) {
-	    		Path path = Paths.get(email.getSistema() + "_" + Calendar.getInstance().getTimeInMillis());	    		
-	    	    boolean existeDir = (new File(path.toUri()).mkdirs());	    	    
-	    		email.setPastaAnexos(path.toFile().getName());
-	    		for (Map.Entry<String, String> listaArquivos : email.getArquivos().entrySet()) {	        		
-					try {
-						byte[] arquivo = Base64.getDecoder().decode(listaArquivos.getValue());						
-						Files.write(Paths.get(path + path.getFileSystem().getSeparator() + listaArquivos.getKey()), arquivo);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-	    		}
-	    		jmsTemplate.convertAndSend(fila, email);	            
-		    }
-	    }	
-			 
+
 	    public void enviarMensagem(EmailDTO email){
 	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	    	
@@ -84,8 +41,9 @@ public class MensageriaService {
             email.setStatus("oK");
             email.setError("Sem erro");
             email.setPastaAnexos("");
-	    	if (email.getArquivos().isEmpty() == false) {	    	
-	    		Path path = Paths.get(email.getSistema() + "_" + Calendar.getInstance().getTimeInMillis());	    		
+	    	if (email.getArquivos().isEmpty() == false) {
+	    		
+	    		Path path = Paths.get(dirAnexos + File.separator + email.getSistema() + "_" + Calendar.getInstance().getTimeInMillis());	    		
 	    	    boolean existeDir = (new File(path.toUri()).mkdirs());	    	    
 	    		email.setPastaAnexos(path.toFile().getName());
 	    		for (Map.Entry<String, String> listaArquivos : email.getArquivos().entrySet()) {	        		
@@ -95,56 +53,9 @@ public class MensageriaService {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-	    		}	    		
+	    		}	
+	    		email.getArquivos().clear();	    		
 	    		jmsTemplate.convertAndSend(fila, email);	            
 		    }
-	    }	
-
-	    public void enviarMensagem() {
-	    	
-	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-	    	for (int i = 0; i < 10; i++) {
-	    		EmailDTO email = new EmailDTO();
-	    		
-	            email.setFrom("mrepereira@fazenda.rj.gov.br");
-	            email.setTo("marcelo.rebeque@gmail.com");
-	            email.setCopia("");
-	            email.setSubject("Teste de envio de msg nr." + i);
-	            email.setCorpo("Conteúdo.");
-	            email.setSistema("SBF");
-	            email.setTipoEmail("HTML");
-	            email.setDataEnvio(ds.format(Calendar.getInstance().getTime()));
-	            email.setStatus("oK");
-	            email.setError("Sem erro");
-				/*
-	    		Path path = Paths.get("C:\\tmp\\arquivos\\comprovante.pdf");
-	      	   	for (int j = 0; j < 2; j++) {
-		    		try {
-						byte[] arquivo = Files.readAllBytes(path);
-		    	   		email.getAnexos().addArquivo(arquivo);
-		    	   		System.out.println(email.getAnexos().getNome());
-		    		} catch (IOException e) {
-		    			e.printStackTrace();
-		    		}
-	    	   	}	      	   	
-	            jmsTemplate.convertAndSend(fila, email);
-	    		
-			}	            
-	            
-	    		Path path = Paths.get("C:\\tmp\\arquivos\\comprovante.pdf");
-	      	   	for (int j = 0; j < 2; j++) {
-		    		try {
-						byte[] arquivo = Files.readAllBytes(path);
-		    	   		email.getAnexos().addArquivo(arquivo);
-		    	   		System.out.println(email.getAnexos().getNome());
-		    		} catch (IOException e) {
-		    			e.printStackTrace();
-		    		}
-	    	   	}
-	    	   	*/	      	   	
-	            jmsTemplate.convertAndSend(fila, email);
-	    		
-			}
-    	
 	    }    	
 }

@@ -160,11 +160,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			
-			<!--
-			<version>${version.lombok}</version>			
-		    -->
-		    	
 			<optional>true</optional>
 		</dependency>
 
@@ -222,24 +217,9 @@
 		</dependency>
 
 			<!--JASPERREPORT -->
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.19.1</version>
-		</dependency>
 
 		<!--BARCODE -->
-		<dependency>
-    		<groupId>net.sourceforge.barbecue</groupId>
-    		<artifactId>barbecue</artifactId>
-    		<version>1.5-beta1</version>
-		</dependency>
 
-		<dependency>
-  		  <groupId>net.sf.barcode4j</groupId>
-  		  <artifactId>barcode4j</artifactId>
-  		  <version>2.1</version>
-		</dependency>
 
 		<dependency>
    			 <groupId>org.apache.xmlgraphics</groupId>
@@ -268,6 +248,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
+
 
 		<!--TEST-->
 		<dependency>

@@ -7,9 +7,9 @@
         
         <!-- Path dos arquivos de log são definidos por um variável no system property do eap -->
 		<Property name="LOG4J2_PATH">
-           $${env:auth.log.dir}
+           $${env:logDir}
         </Property>
-		<Property name="LOG_FILENAME">autorizador-service-rest</Property>
+		<Property name="LOG_FILENAME">enviarEmail-service-rest</Property>
         
     </Properties>
     <!--
