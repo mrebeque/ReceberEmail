@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import br.gov.rj.fazenda.email.corp.client.AutenticadorClient;
+import br.gov.rj.fazenda.email.security.client.AutenticadorClient;
 import br.gov.rj.fazenda.email.security.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
