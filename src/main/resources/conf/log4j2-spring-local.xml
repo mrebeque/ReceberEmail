@@ -7,7 +7,7 @@
         
         <!-- Path dos arquivos de log são definidos por um variável no system property do eap -->
 		<Property name="LOG4J2_PATH">
-           $${env:logDir}
+           $${emailCorp_receber_logDir}
         </Property>
 		<Property name="LOG_FILENAME">enviarEmail-service-rest</Property>
         

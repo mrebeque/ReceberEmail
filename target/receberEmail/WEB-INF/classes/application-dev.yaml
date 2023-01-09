@@ -1,0 +1,20 @@
+cors:
+  mapping: "/**"
+  origins: "http://localhost"
+  methods: "*"
+  headers: "*"
+
+springdoc:
+  show-actuator: false
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  
+logging:
+  config: classpath:conf/log4j2-spring-DEV.xml
+    
+email:
+  corp:
+    mq:
+      queue: emailCorp.email   

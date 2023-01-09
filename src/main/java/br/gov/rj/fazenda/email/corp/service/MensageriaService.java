@@ -32,7 +32,6 @@ public class MensageriaService {
 	    public MensageriaService(JmsTemplate jmsTemplate) {
 			this.jmsTemplate = jmsTemplate;
 	    }
-
 	    public void enviarMensagem(EmailDTO email){
 	    	SimpleDateFormat ds = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	    	
@@ -54,8 +53,17 @@ public class MensageriaService {
 						e.printStackTrace();
 					}
 	    		}	
-	    		email.getArquivos().clear();	    		
-	    		jmsTemplate.convertAndSend(fila, email);	            
+	    		email.getArquivos().clear();
 		    }
+	    	try {
+	    		
+	    		System.out.println("=====================");
+	    		System.out.println("Enviando para fila");	    		
+	    		System.out.println("=====================");
+	    		jmsTemplate.convertAndSend(fila, email);	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    	
 	    }    	
 }

@@ -1,8 +1,3 @@
-## baseUrl: http://drhel8labplat001v.sefnet.rj:8090/autenticador
-#auth:  
-#  baseUrl: http://localhost:8090/autenticador
-#  token-autenticacao: eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NzY5OTc4NTEsInN1YiI6IkVNQUlMX0NOVF9VU1JfU1JWIiwiYXBsaWNhY2FvIjoiQVVUT1JJWkFET1ItU0VSVklDRSIsInJvbGUiOlt7ImF1dGhvcml0eSI6IlNSViJ9XSwiaG9yYUV4cGlyYWNhbyI6IjE0OjQ0IiwidGlwb1Rva2VuIjoiQVVUSCJ9.FCBpa6r9-kopNkHCSAlcI2PLDFhOJ-w88ldyYWa4kG4k7lVOCIqpS-PRLCVPxB88Q3LocNWuX_qXGSLHNuShrA
-
 cors:
   mapping: "/**"
   origins: "http://localhost"

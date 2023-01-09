@@ -7,7 +7,7 @@
         
         <!-- Path dos arquivos de log são definidos por um variável no system property do eap -->
 		<Property name="LOG4J2_PATH">
-           $${env:logDir}
+           $${emailCorp_receber_logDir}      
         </Property>
 		<Property name="LOG_FILENAME">enviarEmail-service-rest</Property>
         
@@ -79,13 +79,13 @@
     </Appenders>
     
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
     		<AppenderRef ref="ConsoleAppender"/>
     		<AppenderRef ref="AlertaAppender" level="info"/>
     		<AppenderRef ref="ErroAppender" level="error"/>
 		</Root>
 		
-		<Logger name="br.gov.rj.fazenda.template" level="info" additivity="false">
+		<Logger name="br.gov.rj.fazenda.email" level="info" additivity="false">
 			<AppenderRef ref="AlertaAppender" level="info" />
 			<AppenderRef ref="ErroAppender" level="error"/>
 		</Logger>

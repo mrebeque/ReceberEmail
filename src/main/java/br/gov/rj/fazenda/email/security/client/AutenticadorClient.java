@@ -1,6 +1,5 @@
 package br.gov.rj.fazenda.email.security.client;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -50,11 +49,15 @@ public class AutenticadorClient {
 		this.obterChaveJwst();
 	}
 	private void autenticar() {		
+		try {
 		 templateAutorizacao = this.createRestTemplate(tokenAutenticacao);
 		 this.credencial = templateAutorizacao
 				 			.postForObject(this.baseUrlAuth + SUFFIX_AUTH,
 				 						null, 
-				            	        CredencialDTO.class);			 
+				            	        CredencialDTO.class);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void obterChaveJwst( ) {

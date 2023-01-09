@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +17,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CredencialDTO {
 	private String usuario;
-	private String codigoAplicacao;
+	private String codigoAplicacao;	
+	@JsonIgnore
 	private Collection<GrantedAuthority> roles;
 	private String token;	
 	private String status;
 	private String msgStatus;
-}
+} 

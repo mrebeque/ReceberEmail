@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        
+        <!-- Path dos arquivos de log são definidos por um variável no system property do eap -->
+		<Property name="LOG4J2_PATH">
+           $${emailCorp_receber_logDir}      
+        </Property>
+		<Property name="LOG_FILENAME">enviarEmail-service-rest</Property>
+        
+    </Properties>
+    <!--
+       #
+       #  A retenção está configurada para trinta dias. Mas semre deixará os últmos trinta aquivos mesmo que sejam mais antigos.
+       #  A rotação (Rollover) dos arquivos de log  será realizada quando eles atingirem 10mb ou quando iniciar um novo dia.
+       # 
+     -->
+	 <Appenders>
+    	<!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        
+        <!-- Rolling File Appender -->
+		<RollingFile name="AlertaAppender" 
+					 fileName="${LOG4J2_PATH}/${LOG_FILENAME}-alerta.log" 
+		             filePattern="${LOG4J2_PATH}/${LOG_FILENAME}-alerta-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		    
+		    <Policies>
+		        <SizeBasedTriggeringPolicy size="10MB" />
+		        <CronTriggeringPolicy schedule = "0 59 23 * * ?" /> 
+		    </Policies>
+		    
+		    <DefaultRolloverStrategy max="30">
+		        <Delete basePath="${LOG4J2_PATH}" maxDepth="1">
+		          <IfFileName glob="*${LOG_FILENAME}-alerta*.log.gz">
+		            <IfLastModified age="P30D">
+		              <IfAny>
+		                <IfAccumulatedFileCount exceeds="30" />
+		              </IfAny>
+		            </IfLastModified>
+		          </IfFileName>
+		        </Delete>		    
+		    
+		    </DefaultRolloverStrategy>
+		    
+		</RollingFile>
+		
+		<RollingFile name="ErroAppender" 		
+					 fileName="${LOG4J2_PATH}/${LOG_FILENAME}-erro.log" 
+		             filePattern="${LOG4J2_PATH}/${LOG_FILENAME}-erro-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+   
+		    <Policies>
+		        <SizeBasedTriggeringPolicy size="10MB" />
+		        <CronTriggeringPolicy schedule = "0 59 23 * * ?" /> 
+		    </Policies>
+		    
+		    <DefaultRolloverStrategy max="30">
+		        <Delete basePath="${LOG4J2_PATH}" maxDepth="1">
+		          <IfFileName glob="*${LOG_FILENAME}-erro*.log.gz">
+		            <IfLastModified age="P30D">
+		              <IfAny>
+		                <IfAccumulatedFileCount exceeds="30" />
+		              </IfAny>
+		            </IfLastModified>
+		          </IfFileName>
+		        </Delete>		    
+		    
+		    </DefaultRolloverStrategy>
+
+		    
+		</RollingFile>
+		
+    </Appenders>
+    
+    <Loggers>
+        <Root level="info">
+    		<AppenderRef ref="ConsoleAppender"/>
+    		<AppenderRef ref="AlertaAppender" level="info"/>
+    		<AppenderRef ref="ErroAppender" level="error"/>
+		</Root>
+		
+		<Logger name="br.gov.rj.fazenda.template" level="info" additivity="false">
+			<AppenderRef ref="AlertaAppender" level="info" />
+			<AppenderRef ref="ErroAppender" level="error"/>
+		</Logger>
+
+    </Loggers>
+</Configuration>

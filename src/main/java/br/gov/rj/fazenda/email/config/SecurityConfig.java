@@ -15,13 +15,10 @@ import org.springframework.web.filter.CorsFilter;
 import br.gov.rj.fazenda.email.security.filter.JwtTokenFilter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		prePostEnabled = true, 
-		securedEnabled = true, 
-		jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
-    @Value("${spring.security.debug:false}")
+    @Value("${spring.security.debug:true}")
     boolean securityDebug;
 
 	@Value("${cors.mapping}")
@@ -80,4 +77,12 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+    /*
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.debug(securityDebug)
+          .ignoring()
+          .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+    }
+   */ 
 }

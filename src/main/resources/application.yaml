@@ -6,15 +6,15 @@ spring:
   profiles:
     active: ${PROFILE}
   activemq:
-    broker-url: ${urlBroker}
-    user: ${usrBroker}   
-    password: ${pwdBroker} 
+    broker-url: ${emailCorp_receber_urlBroker}
+    user: ${emailCorp_receber_usrBroker}   
+    password: ${emailCorp_receber_pwdBroker} 
 
 server:
   address: 0.0.0.0
   port: 8091
   servlet:
-    contextPath: /senderMail            
+    contextPath: /enviarMail            
 
 springdoc:
   show-actuator: false
@@ -25,11 +25,8 @@ springdoc:
 
 auth:
   codigoAplicacao: AUTORIZADOR-SERVICE      
-  baseUrl: ${authUrl}
-  token-autenticacao: ${authToken}
-    
-logging:
-  config: ${arqConf}      
+  baseUrl: ${emailCorp_receber_authUrl}
+  token-autenticacao: ${emailCorp_receber_authToken}
   
 app:
-  dirAnexos: ${dirAnexos}    
+  dirAnexos: ${emailCorp_receber_dirAnexos}    
