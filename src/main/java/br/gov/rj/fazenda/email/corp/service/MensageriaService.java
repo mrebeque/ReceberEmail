@@ -7,16 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Map;
 
-import org.python.icu.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import br.gov.rj.fazenda.email.corp.dto.EmailDTO;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Service
 public class MensageriaService {
 	
@@ -50,20 +52,13 @@ public class MensageriaService {
 						byte[] arquivo = Base64.getDecoder().decode(listaArquivos.getValue());						
 						Files.write(Paths.get(path + path.getFileSystem().getSeparator() + listaArquivos.getKey()), arquivo);
 					} catch (IOException e) {
-						e.printStackTrace();
-					}
+						email.setStatus("Error");
+						email.setError("Erro ao gravar enexo: " + listaArquivos.getKey());
+						log.error("Erro ao gravar enexo: " + listaArquivos.getKey());
+						log.error(e.getMessage());					}
 	    		}	
 	    		email.getArquivos().clear();
 		    }
-	    	try {
-	    		
-	    		System.out.println("=====================");
-	    		System.out.println("Enviando para fila");	    		
-	    		System.out.println("=====================");
-	    		jmsTemplate.convertAndSend(fila, email);	
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    	
+    		jmsTemplate.convertAndSend(fila, email);	
 	    }    	
 }

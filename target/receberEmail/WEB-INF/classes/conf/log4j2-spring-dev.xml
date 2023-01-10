@@ -85,7 +85,7 @@
     		<AppenderRef ref="ErroAppender" level="error"/>
 		</Root>
 		
-		<Logger name="br.gov.rj.fazenda.template" level="info" additivity="false">
+		<Logger name="br.gov.rj.fazenda.email" level="info" additivity="false">
 			<AppenderRef ref="AlertaAppender" level="info" />
 			<AppenderRef ref="ErroAppender" level="error"/>
 		</Logger>

@@ -5,6 +5,7 @@ C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\faze
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\ServletInitializer.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\security\service\JwtService.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\dto\AplicacaoDTO.java
+C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\service\ConversorMessagem.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\controller\impl\Ping.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\config\OpenApiConfig.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\config\AppMessageConfig.java
@@ -17,6 +18,7 @@ C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\faze
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\security\scheduller\Scheduller.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\dto\CredencialDTO.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\dto\EmailDTO.java
+C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\service\ListenerApp.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\handler\ResourceExceptionHandler.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\corp\dto\AnexosDTO.java
 C:\work\projetos\apps\EmailCorporativo\receberEmail\src\main\java\br\gov\rj\fazenda\email\config\SecurityConfig.java

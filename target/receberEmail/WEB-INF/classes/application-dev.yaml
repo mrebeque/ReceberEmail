@@ -12,9 +12,9 @@ springdoc:
     enabled: true
   
 logging:
-  config: classpath:conf/log4j2-spring-DEV.xml
+  config: classpath:conf/log4j2-spring-dev.xml  
     
 email:
   corp:
     mq:
-      queue: emailCorp.email   
+      queue: emailCorp::email

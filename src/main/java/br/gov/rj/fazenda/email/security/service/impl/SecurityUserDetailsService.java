@@ -1,4 +1,4 @@
-package br.gov.rj.fazenda.email.security.service.impl;
+package br.gov.rj.fazenda.email.security.service.impl; 
 
 import java.util.Collection;
 import java.util.HashSet;

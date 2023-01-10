@@ -13,7 +13,7 @@ springdoc:
   
 logging:
   config: classpath:conf/log4j2-spring-dev.xml  
-    
+
 email:
   corp:
     mq:

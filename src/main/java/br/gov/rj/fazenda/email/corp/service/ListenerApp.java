@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.gov.rj.fazenda.email.corp.dto.EmailDTO;
 
-@Component
+//@Component
 public class ListenerApp { 
 	
 	   private JmsTemplate jmsTemplate;
@@ -30,38 +30,22 @@ public class ListenerApp {
 	    	System.out.println("====");
 	    }
 	    
-	    @JmsListener(destination = "${email.corp.mq.queue}")
-	    public void onReceiverQueue(EmailDTO email ) {
+//	    @JmsListener(destination = "${email.corp.mq.queue}")
+//	    public void onReceiverQueue(EmailDTO email ) {
+//	    	System.out.println("====  email ====");
+//	    	System.out.println(email.getFrom());
+//	    	System.out.println(email.getSubject());
+//	    	System.out.println("====");
+//
+//	    }
+
+
+	    // @JmsListener(destination = "${email.corp.mq.queue}", containerFactory = "myFactory")
+	    public void onReceiverQueue(EmailDTO email ){
 	    	System.out.println("====  email ====");
 	    	System.out.println(email.getFrom());
 	    	System.out.println(email.getSubject());
 	    	System.out.println("====");
-
 	    }
-
 	    
-//	    public void ReceiverQueue() {
-//			Object objMsg = jmsTemplate.receiveAndConvert(fila);
-//			if (objMsg == null)
-//				return;
-//			  
-//			if ((objMsg instanceof Email) == false) {
-//				System.out.println("Não é um email válido");
-//				return;
-//			}
-//			Email email = (Email) objMsg;
-//			HashMap<String, byte[]> arquivos = email.getArquivos();
-//	        if (arquivos.isEmpty() == false ) {	        	
-//	        	for (Map.Entry<String, byte[]> arquivo : arquivos.entrySet()) {	        		
-//					try {
-//					 
-//					 Path path = Paths.get(fileDir + FileSystems.getDefault().getSeparator() + arquivo.getKey());
-//						Files.write(path, arquivo.getValue());
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//	        	
-//	        }
-//	    }
 }

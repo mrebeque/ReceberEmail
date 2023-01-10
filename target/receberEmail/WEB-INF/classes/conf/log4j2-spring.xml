@@ -79,15 +79,15 @@
     </Appenders>
     
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
     		<AppenderRef ref="ConsoleAppender"/>
     		<AppenderRef ref="AlertaAppender" level="info"/>
     		<AppenderRef ref="ErroAppender" level="error"/>
 		</Root>
 		
-		<Logger name="br.gov.rj.fazenda.template" level="info" additivity="false">
+		<Logger name="br.gov.rj.fazenda.template" level="debug" additivity="false">
 			<AppenderRef ref="AlertaAppender" level="info" />
-			<AppenderRef ref="ErroAppender" level="error"/>
+			<AppenderRef ref="ErroAppender" level="debug"/>
 		</Logger>
 
     </Loggers>

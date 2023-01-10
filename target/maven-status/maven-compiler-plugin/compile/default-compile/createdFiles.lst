@@ -1,6 +1,7 @@
 br\gov\rj\fazenda\email\corp\dto\AnexosDTO.class
 br\gov\rj\fazenda\email\corp\controller\EmailResourceApi.class
 br\gov\rj\fazenda\email\corp\exception\DetalhesErro.class
+br\gov\rj\fazenda\email\corp\service\ListenerApp.class
 br\gov\rj\fazenda\email\security\client\AutenticadorClient.class
 br\gov\rj\fazenda\email\corp\dto\EmailDTO.class
 br\gov\rj\fazenda\email\corp\dto\AplicacaoDTO.class
@@ -22,6 +23,7 @@ br\gov\rj\fazenda\email\config\JmsConfig.class
 br\gov\rj\fazenda\email\security\filter\JwtTokenFilter.class
 br\gov\rj\fazenda\email\corp\service\MensageriaService.class
 br\gov\rj\fazenda\email\corp\controller\impl\EmailControllerApi.class
+br\gov\rj\fazenda\email\corp\service\ConversorMessagem.class
 br\gov\rj\fazenda\email\config\SecurityConfig.class
 br\gov\rj\fazenda\email\security\service\impl\JwtServiceImpl.class
 br\gov\rj\fazenda\email\config\OpenApiConfig$1.class

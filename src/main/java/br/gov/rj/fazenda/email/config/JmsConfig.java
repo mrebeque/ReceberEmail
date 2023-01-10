@@ -5,12 +5,14 @@ import javax.jms.Queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.qpid.jms.JmsConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -38,18 +40,23 @@ public class JmsConfig {
 	    return new ActiveMQQueue(fila);
 	}
     
+	@Bean
+	public JmsListenerContainerFactory<?> myFactory(
+	    ConnectionFactory connectionFactory,
+	    DefaultJmsListenerContainerFactoryConfigurer configurer) {
+	    DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+	    
+	    configurer.configure(factory, connectionFactory);
+	    return factory;
+	}
+	
     @Bean
-    public ActiveMQConnectionFactory connectionFactory() {
+    public ConnectionFactory connectionFactory() {
         if ( "".equals(user) ) {
-            return new ActiveMQConnectionFactory(brokerUrl);
+            return new JmsConnectionFactory(brokerUrl);
         }
-	    ActiveMQConnectionFactory activeMQConnectionFactory  = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL(brokerUrl);
-    	activeMQConnectionFactory.setUserName(user);
-        activeMQConnectionFactory.setPassword(password);
-        return activeMQConnectionFactory;
+        return new JmsConnectionFactory(user, password, brokerUrl);
     }
-
     @Bean
     public DefaultJmsListenerContainerFactory jmsFactory(ConnectionFactory connectionFactory,
                                                   DefaultJmsListenerContainerFactoryConfigurer configurer) {
@@ -66,7 +73,7 @@ public class JmsConfig {
 	    JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory());
 	    jmsTemplate.setDefaultDestination(queue());
 	    jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
-	    jmsTemplate.setReceiveTimeout(10000);
+	    //jmsTemplate.setReceiveTimeout(10000);
 	    
 	    return jmsTemplate;
     }  
@@ -78,6 +85,7 @@ public class JmsConfig {
 	    converter.setTypeIdPropertyName("_type");
 	    return converter;
 	} 
-	   
 
+
+	
 }
