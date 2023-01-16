@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import br.gov.rj.fazenda.email.corp.dto.CredencialDTO;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Component
 public class AutenticadorClient {
 	
@@ -52,10 +54,13 @@ public class AutenticadorClient {
 		try {
 		 templateAutorizacao = this.createRestTemplate(tokenAutenticacao);
 		 this.credencial = templateAutorizacao
-				 			.postForObject(this.baseUrlAuth + SUFFIX_AUTH,
+				 			.postForObject(this.baseUrlAuth.trim() + SUFFIX_AUTH,
 				 						null, 
 				            	        CredencialDTO.class);	
 		} catch (Exception e) {
+			log.error("Erro ao conectar ao Serviço:"+this.baseUrlAuth.trim() + SUFFIX_AUTH);
+			log.error("Erro: " + e.getLocalizedMessage());
+			log.error("Causa: " + e.getCause().getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
@@ -64,7 +69,7 @@ public class AutenticadorClient {
 		 if (credencial.getStatus().equals("OK")) {
 			 templateAcesso = this.createRestTemplate(credencial.getToken());
 			 this.chaveJwt  = templateAcesso
-					 				.getForObject(this.baseUrlAuth + SUFFIX_KEY,
+					 				.getForObject(this.baseUrlAuth.trim() + SUFFIX_KEY,
 		            		         String.class);
 		 }
 	}

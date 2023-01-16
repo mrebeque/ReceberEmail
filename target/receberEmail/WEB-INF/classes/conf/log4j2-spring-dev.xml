@@ -6,10 +6,8 @@
         </Property>
         
         <!-- Path dos arquivos de log são definidos por um variável no system property do eap -->
-		<Property name="LOG4J2_PATH">
-           $${emailCorp_receber_logDir}      
-        </Property>
-		<Property name="LOG_FILENAME">enviarEmail-service-rest</Property>
+		<Property name="LOG4J2_PATH">${sys:emailCorp_receber_logDir}</Property>
+		<Property name="LOG_FILENAME">enviarEmail-service</Property>
         
     </Properties>
     <!--
@@ -88,6 +86,10 @@
 		<Logger name="br.gov.rj.fazenda.email" level="info" additivity="false">
 			<AppenderRef ref="AlertaAppender" level="info" />
 			<AppenderRef ref="ErroAppender" level="error"/>
+		</Logger>
+
+		<Logger name="org.apache.qpid" level="warn" additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
 		</Logger>
 
     </Loggers>

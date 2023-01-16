@@ -13,8 +13,10 @@ springdoc:
   
 logging:
   config: classpath:conf/log4j2-spring-dev.xml  
-    
+
 email:
   corp:
     mq:
       queue: emailCorp::email
+    dominio: fazenda.rj.gov.br
+    ambienteProdutivo: prd

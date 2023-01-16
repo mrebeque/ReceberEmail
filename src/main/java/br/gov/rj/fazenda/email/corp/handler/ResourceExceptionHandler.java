@@ -15,12 +15,13 @@ import lombok.extern.log4j.Log4j2;
 public class ResourceExceptionHandler {
 
 	@ExceptionHandler(SefazException.class)
+	
 	public ResponseEntity<DetalhesErro> handleRecursoNaoEncontradoException(SefazException e,
 			HttpServletRequest request) {
 		DetalhesErro erro = new DetalhesErro();
 		erro.setStatus(e.getErrorCode());
 		erro.setMessage(e.getErrorMessage());
-		erro.setTimestamp(System.currentTimeMillis());
+		erro.setTimestamp(System.currentTimeMillis());		
 		log.error("SEFAZ Exception -> status: " + erro.getStatus().toString() + " message: "
 				+ erro.getMessage().toString());
 		return ResponseEntity.status(e.getErrorCode()).body(erro);

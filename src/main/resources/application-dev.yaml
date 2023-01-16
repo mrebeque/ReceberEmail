@@ -18,3 +18,5 @@ email:
   corp:
     mq:
       queue: emailCorp::email
+    dominio: fazenda.rj.gov.br
+    ambienteProdutivo: prd

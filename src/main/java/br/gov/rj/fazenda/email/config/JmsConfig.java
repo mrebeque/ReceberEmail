@@ -3,7 +3,6 @@ package br.gov.rj.fazenda.email.config;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.qpid.jms.JmsConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;

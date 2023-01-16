@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gov.rj.fazenda.email.corp.controller.EmailResourceApi;
 import br.gov.rj.fazenda.email.corp.dto.EmailDTO;
+import br.gov.rj.fazenda.email.corp.exception.Result;
 import br.gov.rj.fazenda.email.corp.service.MensageriaService;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @RestController
 @RequestMapping("/api/v1/email")
 public class EmailControllerApi implements EmailResourceApi {
@@ -28,8 +27,16 @@ public class EmailControllerApi implements EmailResourceApi {
 	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADM')")
 	public ResponseEntity<String> enviar(
 			  @RequestBody EmailDTO email) throws URISyntaxException {
-		log.info("Recebendo Solicitação de Email do usuário:" + email.getFrom());
-		msgSrv.enviarMensagem(email);
+		
+		
+		Result result = msgSrv.enviarMensagem(email);
+		if (result.hasErro()) {
+			System.out.println(result.getMessage().toString());
+			return ResponseEntity
+					.badRequest()
+					.body(result.getMessage().toString());
+		}
+		   
 		return  ResponseEntity
 				.ok()
 				.body("Email enviado para fila de distribuição.");
